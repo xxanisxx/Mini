@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>{{ articles.title }}</h1>
+    <p class="text-primary">{{ articles.createdAt | date('d/m/Y') }} {{ articles.createdAt| date('H:i') }}</p>
+   
+    <blockquote class="blockquote">
+            <p class="mb-0">{{ articles.content }}</p>
+            
+    </blockquote>
+{% endblock %}

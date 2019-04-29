@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+    {{ form_start(form,{'attr':{'novalidate':""}}) }}
+    {{ form_row(form.title,{'attr':{'class':"form-control"}}) }}
+    {{ form_row(form.content,{'attr':{'class':"form-control"}}) }}
+    <br>
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Share</button>
+    {{ form_end(form) }}
+{% endblock %}

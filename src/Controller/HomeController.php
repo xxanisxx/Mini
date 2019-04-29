@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Article;
+use App\Form\ArticleType;
+use App\Repository\ArticleRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
@@ -14,6 +19,49 @@ class HomeController extends AbstractController
     {
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
+        ]);
+    }
+
+    /**
+     * @Route("create", name="create")
+     */
+    public function create(Request $request, ObjectManager $manager){
+        $article = new Article();
+        $form = $this->createForm(ArticleType::class, $article);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article->setCreatedAt(new \DateTime());
+            $manager->persist($article);
+            $manager->flush();
+
+            return $this->redirectToRoute('show',['id' => $article->getId()
+            ]);
+        }
+        
+        return $this->render('home/create.html.twig',[
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/accueil", name="accueil")
+     */
+    public function accueilList(ArticleRepository $rep)
+    {
+        $article = $rep->findAll();
+        return $this->render('home/accueil.html.twig',[
+            'articles' => $article,
+        ]);
+    }
+
+    /**
+     * @Route("/show/{id}", name="show")
+     */
+    public function show(ArticleRepository $rep, $id){
+        $article = $rep->find($id);
+        return $this->render('home/show.html.twig',[
+            'articles' => $article
         ]);
     }
 

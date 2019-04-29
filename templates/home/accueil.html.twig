@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<table class="table table-hover table-striped">
+{% for article in articles %}
+    <tr>
+        <th scope="col">{{ article.title }}</th>
+        <td>{{ article.createdAt | date('d/m/Y') }} {{ article.createdAt| date('H:i') }}</td>
+        <td><a class="btn btn-outline-success" href="{{ path('show',{'id': article.id}) }}">Info</a> </td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}
