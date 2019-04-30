@@ -1,11 +1,28 @@
 {% extends "base.html.twig" %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-    <h1>{{ articles.title }}</h1>
+<div class="container">
+    <h2>{{ articles.title }}</h2>
     <p class="text-primary">{{ articles.createdAt | date('d/m/Y') }} {{ articles.createdAt| date('H:i') }}</p>
    
-    <blockquote class="blockquote">
-            <p class="mb-0">{{ articles.content }}</p>
-            
-    </blockquote>
+    
+        <p class="mb-0">{{ articles.content }}</p> 
+    <br><br><br>
+
+    {% for comment in articles.comments %}
+    <div class="jumbotron">
+        <h3> <img src="/img/book.png" width="30" height="30" class="d-inline-block align-top">&nbsp;{{ comment.author}}</h3>
+        <p class="text-primary">{{ articles.createdAt | date('d/m/Y') }} {{ articles.createdAt| date('H:i') }}</p>
+       <small>{{ comment.content}}</small>
+    </div>
+    {% endfor %}
+
+    {{ form_start(form,{'attr':{'novalidate':""}}) }}
+    {{ form_row(form.author,{'label': 'Author','attr':{'class':"form-control"}}) }}
+    {{ form_row(form.content,{'label': 'Comment','attr':{'class':"form-control"}}) }}
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Share</button>
+    {{ form_end(form)}}
+
+</div>
 {% endblock %}
