@@ -23,7 +23,7 @@ class ArticleFixtures extends Fixture
             for ($j=0; $j < 4; $j++) { 
 
                 $article = new Article();
-                $content = '<p>' . join($faker->paragraphs(5), '</p><p>') . '</p>';
+                $content =  join($faker->paragraphs(5));
                 $article->setTitle($faker->sentence())
                         ->setContent($content)
                         ->setCreatedAt($faker->dateTimeBetween('-6 months'))
@@ -32,7 +32,7 @@ class ArticleFixtures extends Fixture
 
                 for ($k=1; $k <= 5; $k++) { 
                     $comment = new Comment();
-                    $content = '<p>' . join($faker->paragraphs(2), '</p><p>') . '</p>';
+                    $content = join($faker->paragraphs(2));
                     $days = (new \DateTime())->diff($article->getCreatedAt())->days;
 
                     $comment->setAuthor($faker->name())

@@ -6,6 +6,7 @@
     <tr>
         <th scope="col">{{ article.title }}</th>
         <td>{{ article.createdAt | date('d/m/Y') }} {{ article.createdAt| date('H:i') }}</td>
+        <td>{{ article.category.title }}</td>
         <td><a class="btn btn-outline-success" href="{{ path('show',{'id': article.id}) }}">Info</a> </td>
     </tr>
 {% endfor %}
