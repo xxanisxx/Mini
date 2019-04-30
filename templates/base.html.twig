@@ -21,10 +21,22 @@
                         <li class="nav-item">
                           <a class="nav-link" href="#">About</a>
                         </li>
+                      
+      
+                   
+
                       </ul>
-                        <a href="{{ path('create') }}" class="btn btn-info my-2 my-sm-0" >Need help</a>&nbsp;
-                        <a href="{{ path('login') }}" class="btn btn-secondary my-2 my-sm-0" >Login</a>&nbsp;
-                        <a href="{{ path('signup') }}" class="btn btn-warning my-2 my-sm-0" >Sign Up</a>
+
+                         {% if not app.user %}
+                        <a href="{{ path('security_login') }}" class="btn btn-secondary my-2 my-sm-0" >Login</a>&nbsp;
+                         <a href="{{ path('security_registration') }}" class="btn btn-warning my-2 my-sm-0" >Sign Up</a>
+
+                         {% else %}
+                        <a href="{{ path('security_logout') }}" class="btn btn-warning my-2 my-sm-0" >Logout</a>
+                         <a href="{{ path('create') }}" class="btn btn-info my-2 my-sm-0" >Need help</a>&nbsp;
+
+                           {% endif %}
+
                     </div>
                   </nav>
                   <br>

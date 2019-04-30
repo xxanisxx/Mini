@@ -2,7 +2,7 @@ version: "3.1"
 services:
     mysql:
         image: mysql:5.7
-        container_name: anis-mysql
+        container_name: mysql
         volumes:
             - ./docker/mysql:/var/lib/mysql
         command:
@@ -18,7 +18,7 @@ services:
 
     webserver:
         image: nginx:alpine
-        container_name: anis-webserver
+        container_name: webserver
        
         volumes:
             - .:/application
@@ -28,7 +28,7 @@ services:
 
     php-fpm:
         build: docker/php-fpm
-        container_name: anis-php-fpm
+        container_name: php-fpm
 
         volumes:
             - .:/application
