@@ -14,6 +14,7 @@
         <th scope="col"><strong><b>{{ article.title }}</b></strong></th>
         <td>{{ article.createdAt | date('d/m/Y') }} {{ article.createdAt| date('H:i') }}</td>
         <td>{{ article.category.title }}</td>
+        <td><a href="{{ path('delete', {'id': article.id}) }}" class="btn btn-danger"></td>
     </tr>
 {% endfor %}
 </table>

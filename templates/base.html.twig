@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="https://bootswatch.com/4/slate/bootstrap.min.css">
+        <link rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         {% block stylesheets %}{% endblock %}
     </head>
@@ -19,13 +19,12 @@
                         <li class="nav-item active">
                           <a class="nav-link" href="{{ path('accueil') }}">Accueil</a>
                         </li>
+                        <li class="nav-item ">
+                          <a class="nav-link" href="{{ path('profil') }}">Profil</a>
+                        </li>
                         <li class="nav-item">
                           <a class="nav-link" href="#">About</a>
                         </li>
-                      
-      
-                   
-
                       </ul>
 
                          {% if not app.user %}
@@ -36,7 +35,7 @@
                         <a href="{{ path('security_logout') }}" class="btn btn-warning my-2 my-sm-0" >Logout</a>
                          <a href="{{ path('create') }}" class="btn btn-info my-2 my-sm-0" >Need help</a>&nbsp;
 
-                           {% endif %}
+                          {% endif %}
 
                     </div>
                   </nav>

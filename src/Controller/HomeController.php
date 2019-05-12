@@ -23,27 +23,12 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
-
     /**
-     * @Route("create", name="create")
+     * @Route("/profil", name="profil")
      */
-    public function create(Request $request, ObjectManager $manager){
-        $article = new Article();
-        $form = $this->createForm(ArticleType::class, $article);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $article->setCreatedAt(new \DateTime());
-            $manager->persist($article);
-            $manager->flush();
-
-            return $this->redirectToRoute('show',['id' => $article->getId()
-            ]);
-        }
-        
-        return $this->render('home/create.html.twig',[
-            'form' => $form->createView(),
-        ]);
+    public function profil()
+    {
+        return $this->render('home/profil.html.twig');
     }
 
     /**
@@ -82,19 +67,5 @@ class HomeController extends AbstractController
             'articles' => $article,
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/login", name="login")
-     */
-    public function login(){
-        return $this->render('home/login.html.twig');
-    }
-
-     /**
-     * @Route("/signup", name="signup")
-     */
-    public function signup(){
-        return $this->render('home/signup.html.twig');
     }
 }
