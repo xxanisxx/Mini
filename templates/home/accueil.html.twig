@@ -1,14 +1,21 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+    <style>
+        .table-row{
+            cursor:pointer;
+            }
+    </style>
+{% endblock %}    
 {% block body %}
-<table class="table table-hover table-striped">
+<table class="table table-bordered table-striped table-hover">
 {% for article in articles %}
-    <tr>
-        <th scope="col">{{ article.title }}</th>
+    <tr height="80" class="table-row" data-href="{{ path('show',{'id': article.id}) }}">
+        <th scope="col"><strong><b>{{ article.title }}</b></strong></th>
         <td>{{ article.createdAt | date('d/m/Y') }} {{ article.createdAt| date('H:i') }}</td>
         <td>{{ article.category.title }}</td>
-        <td><a class="btn btn-outline-success" href="{{ path('show',{'id': article.id}) }}">Info</a> </td>
     </tr>
 {% endfor %}
 </table>
+<script type="text/javascript" src="script.js"></script>
 {% endblock %}
