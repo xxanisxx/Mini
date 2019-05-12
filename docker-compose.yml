@@ -33,3 +33,15 @@ services:
         volumes:
             - .:/application
             - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        depends_on:
+            - mysql
+        ports:
+            - 8080:80
+        environment:
+            MYSQL_USERNAME: user
+            MYSQL_ROOT_PASSWORD: root
+            PMA_HOST: mysql
