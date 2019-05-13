@@ -17,10 +17,12 @@ class CrudController extends AbstractController
      */
     public function create(Request $request, ObjectManager $manager){
         $article = new Article();
+        $user = $this->getUser();
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $article->setUser($user);
             $article->setCreatedAt(new \DateTime());
             $manager->persist($article);
             $manager->flush();

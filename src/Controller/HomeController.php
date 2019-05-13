@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Comment;
 use App\Form\ArticleType;
@@ -47,7 +48,11 @@ class HomeController extends AbstractController
      */
     public function show(ArticleRepository $rep, $id, Request $request, ObjectManager $manager){
         $article = $rep->find($id);
-
+        $user = $this->getUser();
+        if ($user != null) {
+            $username = $this->getUser()->getUsername();
+        }
+        
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         
@@ -55,6 +60,8 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setArticle($article);
+            $comment->setUser($user);
+            $comment->setAuthor($username);
             $comment->setCreatedAt(new \DateTime());
             $manager->persist($comment);
             $manager->flush();

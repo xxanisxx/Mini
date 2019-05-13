@@ -25,7 +25,7 @@
 Connect to make comment
 {% else %}
    {{ form_start(form,{'attr':{'novalidate':""}}) }}
-    {{ form_row(form.author,{'label': 'Author','attr':{'class':"form-control"}}) }}
+    
     {{ form_row(form.content,{'label': 'Comment','attr':{'class':"form-control"}}) }}
     <button type="submit" class="btn btn-primary btn-lg btn-block">Share</button>
     {{ form_end(form)}}

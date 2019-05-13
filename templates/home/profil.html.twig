@@ -2,10 +2,16 @@
 
 {% block body %}
 
-    Profil page
-
-    <p>Username: {{ app.user.username }}</p>
-    {{ app.user.email }}
+    <h2>
+        <img class="rounded-circle" width="100" height="100" src="img/book.png" data-holder-rendered="true">
+        {{ app.user.username }}
+    </h2>
+    <br>
+    <div class="jumbotron">
+        {% for n in app.user.articles %}
+        <p align="right" class="text-primary"> <b>Comments:</b> {{ n.comments | length }}</p>
+        <p> {{ n.content }}  </p>      
+        {% endfor %}
+    </div>
     
-
 {% endblock %}
