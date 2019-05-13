@@ -2,16 +2,54 @@
 
 {% block body %}
 
-    <h2>
-        <img class="rounded-circle" width="100" height="100" src="img/book.png" data-holder-rendered="true">
-        {{ app.user.username }}
-    </h2>
-    <br>
-    <div class="jumbotron">
-        {% for n in app.user.articles %}
-        <p align="right" class="text-primary"> <b>Comments:</b> {{ n.comments | length }}</p>
-        <p> {{ n.content }}  </p>      
-        {% endfor %}
+<h2>
+    <img class="rounded-circle" width="100" height="100" src="img/book.png" data-holder-rendered="true">
+    {{ app.user.username }}
+</h2>
+
+<div class="container">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#home">Articles</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu1">Menu 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu2">Menu 2</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div id="home" class="container tab-pane active"><br>
+
+            {% for n in app.user.articles %}
+            <div class="jumbotron">
+
+                <h3>{{ n.title }} </h3>
+                <p> {{ n.content }} </p>
+                <div align="right">
+                    <a href="{{ path('show',{'id': n.id}) }}">
+                        <span class="badge badge-pill badge-success"> Comments: {{ n.comments | length }}</span>
+                    </a>
+
+                    <a href="{{ path('delete', {'id': n.id}) }}">
+                        <span class="badge badge-pill badge-primary">Delete</span>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+        <div id="menu1" class="container tab-pane fade"><br>
+            <h3>Menu 1</h3>
+        </div>
+        <div id="menu2" class="container tab-pane fade"><br>
+            <h3>Menu 2</h3>
+        </div>
     </div>
-    
+</div>
+
 {% endblock %}

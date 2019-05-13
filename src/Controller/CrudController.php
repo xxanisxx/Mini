@@ -27,8 +27,9 @@ class CrudController extends AbstractController
             $manager->persist($article);
             $manager->flush();
 
-            return $this->redirectToRoute('show',['id' => $article->getId()
-            ]);
+            /*return $this->redirectToRoute('show',['id' => $article->getId()
+            ]);*/
+            return $this->redirectToRoute('profil');
         }
         
         return $this->render('home/create.html.twig',[
@@ -43,7 +44,7 @@ class CrudController extends AbstractController
         $article = $rep->find($id);
         $manager->remove($article);
         $manager->flush();
-        return $this->redirectToRoute('accueil');
+        return $this->redirectToRoute('profil');
     }
 
 }
