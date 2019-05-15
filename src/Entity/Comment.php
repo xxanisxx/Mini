@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
@@ -42,6 +45,16 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CommentLike", mappedBy="comment")
+     */
+    private $likes;
+
+    public function __construct()
+    {
+        $this->likes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -106,5 +119,50 @@ class Comment
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|CommentLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(CommentLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setComment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(CommentLike $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getComment() === $this) {
+                $like->setComment(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * methode to know if user is already like 
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isLikedByUser(User $user)
+    {
+        foreach ($this->likes as $like) {
+            if ($like->getUser() === $user) return true;
+        }
+        return false;
     }
 }

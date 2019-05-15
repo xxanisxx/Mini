@@ -16,20 +16,84 @@
         </h3>
         <p class="text-primary">{{ articles.createdAt | date('d/m/Y') }} {{ articles.createdAt| date('H:i') }}</p>
         <small>{{ comment.content}}</small>
+        <div align="right">
+            <a class="js-like" href="{{ path('like',{'id':comment.id}) }}">
+                {% if app.user and comment.isLikedByUser(app.user) %}
+                <span class="js-color badge badge badge-primary">
+                    <i class="fas fa-heart"></i>
+                    <span class="js-like-content">DISLIKE</span>
+                </span>
+                <span class="js-likes"> {{ comment.likes | length }} </span>
+                {% elseif app.user and not comment.isLikedByUser(app.user)%}
+                <span class="js-color badge badge badge-success">
+                    <i class="far fa-heart"></i>
+                    <span class="js-like-content">LIKE</span>
+                </span>
+                <span class="js-likes"> {{ comment.likes | length }} </span>
+                {% else %}
+                <span class="badge badge badge-primary">{{ comment.likes | length }} LIKES</span>
+                {% endif %}
+
+            </a>
+        </div>
+
     </div>
     {% endfor %}
-
-
-
 
     {% if not app.user %}
     Connect to make comment
     {% else %}
-    {{ form_start(form,{'attr':{'novalidate':""}}) }}
 
+    {{ form_start(form,{'attr':{'novalidate':""}}) }}
     {{ form_row(form.content,{'label': 'Comment','attr':{'class':"form-control"}}) }}
     <button type="submit" class="btn btn-primary btn-lg btn-block">Share</button>
     {{ form_end(form)}}
+    <br><br><br>
 </div>
 {% endif %}
+{% endblock %}
+{% block javascripts %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function OnClickLike(event) {
+        event.preventDefault();
+
+        const url = this.href;
+        const spanCount = this.querySelector('span.js-likes');
+        const spanColor = this.querySelector('span.js-color');
+        const spancontent = this.querySelector('span.js-like-content');
+        const icon = this.querySelector('i');
+
+        axios.get(url).then(function (response) {
+
+            spanCount.textContent = response.data.likes;
+
+            if (icon.classList.contains('fas')) {
+                icon.classList.replace('fas', 'far');
+            } else {
+                icon.classList.replace('far', 'fas');
+            }
+
+            if (response.data.message == 'DISLIKE') {
+                spancontent.textContent = 'LIKE';
+            } else {
+                spancontent.textContent = 'DISLIKE';
+            }
+
+            if (spanColor.classList.contains('badge-primary')) {
+                spanColor.classList.replace('badge-primary', 'badge-success');
+            } else {
+                spanColor.classList.replace('badge-success', 'badge-primary');
+            }
+        }).catch(function (err) {
+            if (err.response.status === 403) {
+                window.alert("connect first");
+            }
+        });
+    }
+    document.querySelectorAll('a.js-like').forEach(function (link) {
+        link.addEventListener('click', OnClickLike);
+    });
+</script>
+
 {% endblock %}

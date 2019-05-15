@@ -58,10 +58,16 @@ class User implements UserInterface
      */
     private $articles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CommentLike", mappedBy="user")
+     */
+    private $likes;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->articles = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -175,6 +181,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($article->getUser() === $this) {
                 $article->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CommentLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(CommentLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(CommentLike $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
             }
         }
 
