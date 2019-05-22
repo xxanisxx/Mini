@@ -14,7 +14,7 @@
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade" id="category">
         <br>
-        <a class="btn btn-primary btn-lg btn-block">New Category</a>
+        <a class="btn btn-primary btn-lg btn-block" href="{{ path('create_category')}}">New Category</a>
         <br>
         <table class="table table-striped">
             {% for category in category %}
@@ -29,7 +29,6 @@
     </div>
     <div class="tab-pane fade active show" id="user">
         <br>
-        <a class="btn btn-primary btn-lg btn-block">New User</a>
         <br>
         <table class="table table-striped">
             {% for user in user %}

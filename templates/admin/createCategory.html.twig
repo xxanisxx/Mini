@@ -1,0 +1,8 @@
+{% extends "base.html.twig" %}
+{% block body %}
+{{ form_start(form)}}
+{{ form_row(form.title,{'attr':{'class': "form-control"}} )}}
+{{ form_row(form.description,{'attr':{'class': "form-control"}} )}}
+<button type="submit" class="btn btn-primary">Create</button>
+{{ form_end(form) }}
+{% endblock %}
