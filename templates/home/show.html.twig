@@ -24,7 +24,12 @@
     {% for comment in articles.comments %}
     <div class="jumbotron">
         <h5> <img src="/img/book.png" width="30" height="30" class="d-inline-block align-top"> {{ comment.author}}</h5>
-        <p class="text-primary">{{ articles.createdAt | date('d/m/Y') }} {{ articles.createdAt| date('H:i') }}</p>
+        <div>
+            <span class="badge badge-primary">
+                {{ comment.createdAt | date('d/m/Y') }}
+                {{ comment.createdAt| date('H:i') }}
+            </span>
+        </div>
         <small><b>{{ comment.content}}</b></small>
         <div align="right">
             <a class="js-like" href="{{ path('like',{'id':comment.id}) }}">
@@ -51,7 +56,7 @@
     {% endfor %}
 
     {% if not app.user %}
-    Connect to make comment
+    <br><br><br>
     {% else %}
 
     {{ form_start(form,{'attr':{'novalidate':""}}) }}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#category">Manage Category</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#user">Manage User</a>
+    </li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade" id="category">
+        <br>
+        <a class="btn btn-primary btn-lg btn-block">New Category</a>
+        <br>
+        <table class="table table-striped">
+            {% for category in category %}
+            <tr height="80" class="table-row">
+                <th scope="col">{{ category.title }}</th>
+                <td>{{ category.description}}</td>
+                <td><a class="btn btn-success">edit</a></td>
+                <td><a class="btn btn-primary">delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="tab-pane fade active show" id="user">
+        <br>
+        <a class="btn btn-primary btn-lg btn-block">New User</a>
+        <br>
+        <table class="table table-striped">
+            {% for user in user %}
+            <tr class="table-row">
+                <th scope="col">{{ user.username }}</th>
+                <td>{{ user.email}}</td>
+                <td>
+                    {% for role in user.roles %}
+                    {{ role }}
+                    {% endfor %}
+                </td>
+                <td><a class="btn btn-success">edit</a></td>
+                <td><a class="btn btn-primary">delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

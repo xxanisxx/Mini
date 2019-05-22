@@ -25,11 +25,18 @@ class ArticleFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
+        $user = new User();
+        $user->setEmail('admin@admin')
+            ->setUsername('admin')
+            ->setPassword($this->encoder->encodePassword($user, 'adminadmin'))
+            ->setRoles(['ROLE_ADMIN']);
+
+        $manager->persist($user);
         for ($e = 0; $e < 20; $e++) {
             $user = new User();
             $user->setEmail($faker->email)
                 ->setUsername($faker->userName)
-                ->setPassword($this->encoder->encodePassword($user, 'anisanis'));
+                ->setPassword($this->encoder->encodePassword($user, 'useruser'));
 
             $manager->persist($user);
             $users[] = $user;

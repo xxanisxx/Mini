@@ -43,8 +43,8 @@ class User implements UserInterface
      */
     private $password;
 
-     /**
-          * @Assert\EqualTo(propertyPath="confirm_password", message="vous n'avez pas tapé le meme mot de passe"))
+    /**
+     * @Assert\EqualTo(propertyPath="confirm_password", message="vous n'avez pas tapé le meme mot de passe"))
      */
     public $confirm_password;
 
@@ -62,6 +62,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\CommentLike", mappedBy="user")
      */
     private $likes;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
     public function __construct()
     {
@@ -113,17 +118,22 @@ class User implements UserInterface
 
 
     public function eraseCredentials()
+    { }
+    public function getRoles(): array
     {
-        
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
-    public function getRoles()
+
+    public function setRoles(array $roles): void
     {
-        return ['ROLE_USER'];
+        $this->roles = $roles;
     }
     public function getSalt()
-    {
-        
-    }
+    { }
 
     /**
      * @return Collection|Comment[]
@@ -217,5 +227,4 @@ class User implements UserInterface
 
         return $this;
     }
-    
 }
