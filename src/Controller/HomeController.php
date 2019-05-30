@@ -39,6 +39,7 @@ class HomeController extends AbstractController
      */
     public function accueilList(ArticleRepository $rep)
     {
+
         $article = $rep->findAll();
         return $this->render('home/accueil.html.twig', [
             'articles' => $article,
