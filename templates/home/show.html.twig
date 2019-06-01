@@ -20,12 +20,12 @@
         <p class="card-text">{{ articles.content }}</p>
     </div>
 </div>
-<div class="container">
+<div class="container" align="left">
     {% for comment in articles.comments %}
     <div class="jumbotron">
         <h5> <img src="/img/book.png" width="30" height="30" class="d-inline-block align-top"> {{ comment.author}}</h5>
         <div>
-            <span class="badge badge-primary">
+            <span class="badge badge-pill badge-secondary">
                 {{ comment.createdAt | date('d/m/Y') }}
                 {{ comment.createdAt| date('H:i') }}
             </span>
@@ -34,19 +34,19 @@
         <div align="right">
             <a class="js-like" href="{{ path('like',{'id':comment.id}) }}">
                 {% if app.user and comment.isLikedByUser(app.user) %}
-                <span class="js-color badge badge badge-primary">
+                <span class="js-color badge badge-primary">
                     <i class="fas fa-heart"></i>
                     <span class="js-like-content">DISLIKE</span>
                 </span>
                 <span class="js-likes"> {{ comment.likes | length }} </span>
                 {% elseif app.user and not comment.isLikedByUser(app.user)%}
-                <span class="js-color badge badge badge-success">
+                <span class="js-color badge badge-success">
                     <i class="far fa-heart"></i>
                     <span class="js-like-content">LIKE</span>
                 </span>
                 <span class="js-likes"> {{ comment.likes | length }} </span>
                 {% else %}
-                <span class="badge badge badge-primary">{{ comment.likes | length }} LIKES</span>
+                <span class="badge badge-primary">{{ comment.likes | length }} LIKES</span>
                 {% endif %}
 
             </a>

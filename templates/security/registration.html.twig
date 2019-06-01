@@ -1,18 +1,18 @@
 {% extends "base.html.twig" %}
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 {% block body %}
-<table class="table table-hover table-striped">
 <h1> Inscription </h1>
+<div align="left" class="w-50 p-3">
+    {{ form_start(form,{'attr':{'novalidate':""}}) }}
 
-{{ form_start(form,{'attr':{'novalidate':""}}) }}
+    {{ form_row(form.username,{'attr':{'class':"form-control"}}) }}
+    {{ form_row(form.email, {'attr':{'class':"form-control"}}) }}
+    {{ form_row(form.password, {'attr':{'class':"form-control"}}) }}
+    {{ form_row(form.confirm_password, {'attr':{'class':"form-control"}}) }}
 
-{{ form_row(form.username,{'attr':{'class':"form-control"}}) }}
-{{ form_row(form.email, {'attr':{'class':"form-control"}}) }}
-{{ form_row(form.password, {'attr':{'class':"form-control"}}) }}
-{{ form_row(form.confirm_password, {'attr':{'class':"form-control"}}) }}
+    <button type="submit" class="btn btn-primary btn-lg btn-block"> Inscription !</button>
 
-<button type="submit" class="btn btn-primary btn-lg btn-block"> Inscription !</button>
-
-{{ form_end(form)}}
+    {{ form_end(form)}}
+</div>
 
 {% endblock %}

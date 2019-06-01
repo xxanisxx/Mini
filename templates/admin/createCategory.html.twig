@@ -1,8 +1,11 @@
 {% extends "base.html.twig" %}
 {% block body %}
-{{ form_start(form)}}
-{{ form_row(form.title,{'attr':{'class': "form-control"}} )}}
-{{ form_row(form.description,{'attr':{'class': "form-control"}} )}}
-<button type="submit" class="btn btn-primary">Create</button>
-{{ form_end(form) }}
+<div align="left" class="w-75 p-3">
+    {{ form_start(form)}}
+    {{ form_row(form.title,{'attr':{'class': "form-control"}} )}}
+    {{ form_row(form.description,{'attr':{'class': "form-control"}} )}}
+    <br>
+    <button type="submit" class="btn btn-primary btn-block">Create</button>
+    {{ form_end(form) }}
+</div>
 {% endblock %}

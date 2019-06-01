@@ -23,10 +23,10 @@ function OnClickLike(event) {
             spancontent.textContent = 'DISLIKE';
         }
 
-        if (spanColor.classList.contains('badge-primary')) {
-            spanColor.classList.replace('badge-primary', 'badge-success');
+        if (spanColor.classList.contains('badge-danger')) {
+            spanColor.classList.replace('badge-danger', 'badge-success');
         } else {
-            spanColor.classList.replace('badge-success', 'badge-primary');
+            spanColor.classList.replace('badge-success', 'badge-danger');
         }
     }).catch(function (err) {
         if (err.response.status === 403) {

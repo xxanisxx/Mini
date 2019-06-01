@@ -9,18 +9,19 @@
 {% endblock %}
 
 {% block body %}
-
-<table class="table table-striped table-hover">
-    {% for article in articles %}
-    <tr height="80" class="table-row" data-href="{{ path('show',{'id': article.id}) }}">
-        <th scope="col"><strong><b>{{ article.title }}</b></strong></th>
-        <td>{{ article.createdAt | date('d/m/Y') }} {{ article.createdAt| date('H:i') }}</td>
-        <td>{{ article.category.title }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
-
+<div align="left" class="w-100 p-3">
+    <div class="jumbotron">
+        <table class="table table-hover">
+            {% for article in articles %}
+            <tr height="80" class="table-row table-active" data-href="{{ path('show',{'id': article.id}) }}">
+                <th scope="col"><strong><b>{{ article.title }}</b></strong></th>
+                <td>{{ article.createdAt | date('d/m/Y') }} {{ article.createdAt| date('H:i') }}</td>
+                <td>{{ article.category.title }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 {% endblock %}
 
 {% block javascripts %}
