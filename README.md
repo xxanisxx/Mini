@@ -2,8 +2,6 @@
 <br>
 <br>
 
-
-### The main elements to be included in the specifications  
 #### 1-Objectif :  
 ###### Resolving a problem using a communication interface between users.  
 <br>
