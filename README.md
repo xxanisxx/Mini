@@ -32,7 +32,8 @@
 ###### install all environment needs:
 `docker-compose exec php-fpm bash`  
 `composer install`  
-`bin/console d:m:m`  
+`bin/console d:m:m`
+`bin/console d:s:u --force`
 `bin/console d:f:l`  
 <br>
 
